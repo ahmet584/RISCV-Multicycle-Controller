@@ -1,0 +1,1 @@
+Info (10281): Verilog HDL Declaration information at mainfsm.sv(7): object "memwrite" differs only in case from object "MEMWRITE" in the same scope File: C:/altera_lite/projects/hw2/Multicycle Processor Controller/mainfsm.sv Line: 7
