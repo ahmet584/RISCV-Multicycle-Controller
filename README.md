@@ -1,32 +1,34 @@
 # RISC-V Multi-Cycle Controller Design
 
-Bu proje, RISC-V mimarisine sahip çok vuruşlu (multi-cycle) bir işlemci kontrol ünitesinin SystemVerilog ile tasarımını ve QuestaSim üzerindeki test süreçlerini içermektedir.
+A SystemVerilog implementation of a multi-cycle RISC-V controller unit, designed and verified using QuestaSim.
 
-## 🚀 Proje Özeti (Project Summary)
-- **Mimari:** RISC-V Multi-cycle
-- **Tasarım Dili:** SystemVerilog
-- **Simülasyon:** QuestaSim
-- **Test Kapsamı:** 40 Test Vektörü (R-Type, Load, Store, Branch, Jump)
+## 🚀 Overview
+This project implements the control logic for a RISC-V multi-cycle processor. It handles the instruction lifecycle across multiple clock cycles using a Finite State Machine (FSM).
 
-## 📊 Simülasyon Sonuçları (Simulation Results)
+- **Architecture:** RISC-V Multi-cycle
+- **Language:** SystemVerilog
+- **Simulation:** QuestaSim / ModelSim
+- **Validation:** 40 Test Vectors (R-Type, I-Type, Load/Store, Branch, Jump)
 
-### 1. Konsol Çıktısı (Transcript)
-Simülasyon sonunda tüm test vektörleri başarıyla tamamlanmış ve tasarımın doğruluğu tescillenmiştir.
-![Transcript 0 Error](transcript_0error.png) 
-*(Not: Dosya sonu (EOF) nedeniyle oluşan son hata raporu dışında tüm 40 vektör başarıyla geçilmiştir.)*
+## 📊 Verification Results
 
-### 2. Dalga Formu Analizi (Waveform)
-Aşağıdaki görselde, işlemcinin `state` (durum) geçişlerini ve kontrol sinyallerinin zamanlamasını görebilirsiniz.
+### 1. Transcript (0 Errors)
+The simulation successfully passes all 40 test vectors with **0 errors**.
+*(Note: The final error reported on vector 40 is a false positive due to the End-of-File reached in the .tv file).*
+
+![Transcript](transcript_0error.png)
+
+### 2. Waveform Analysis
+The waveform confirms correct state transitions. I tracked instructions moving from **FETCH (0)** through **DECODE (1)** to their respective execution and **WRITEBACK (8)** states.
+
 ![Waveform](waveform.png)
 
-## 🛠️ Teknik Detaylar (Technical Insights)
-Tasarım sürecinde özellikle şu noktalar üzerinde durulmuştur:
-- **FSM Tasarımı:** Komutların Fetch (0) aşamasından başlayarak ilgili Writeback veya Memory aşamalarına kadar olan geçişleri optimize edildi.
-- **ALU Decoding:** Lab föyü (Harris & Harris) ile testbench (Patterson & Hennessy) arasındaki sinyal eşleme farkları analiz edilerek `aludec.sv` modülü güncellendi.
-- **Hata Ayıklama:** Toplamda 6 saatlik bir çalışma ile 40 hata durumu analiz edildi ve "0 error" sonucuna ulaşıldı.
+## 🛠️ Engineering Insights
+- **FSM Implementation:** Optimized state transitions for efficient instruction execution.
+- **ALU Decoding:** Identified and resolved signal mapping discrepancies between the Harris & Harris manual and the Patterson & Hennessy testbench protocol.
+- **Development Time:** Approximately **6 hours** spent on RTL coding, debugging, and verification.
 
-## 📂 Dosya Yapısı
-- `mainfsm.sv`: Ana kontrol ünitesi (FSM)
-- `aludec.sv`: ALU kontrol sinyallerini üreten dekoder
-- `controller.sv`: Üst seviye kontrol modülü
-- `testbench.sv`: Simülasyon ortamı
+## 📂 Key Files
+- `mainfsm.sv`: Primary Finite State Machine logic.
+- `aludec.sv`: Updated ALU control signals for testbench compatibility.
+- `controller.sv`: Top-level controller module.
