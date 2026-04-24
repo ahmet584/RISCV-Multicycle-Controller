@@ -14,9 +14,9 @@ module mainfsm(input  logic       clk,
 
     // State definitions
     typedef enum logic [3:0] {
-        FETCH=0, DECODE=1, MEMADR=2, MEMREAD=3, 
-        MEMWB=4, MEMWRITE=5, EXECUTER=6, ALUWB=7, 
-        EXECUTEI=8, JAL=9, BEQ=10
+        FETCH    = 4'd0, DECODE   = 4'd1, MEMADR   = 4'd2, MEMREAD  = 4'd3,
+		  MEMWB    = 4'd4, MEMWRITE = 4'd5, EXECUTER = 4'd6, ALUWB    = 4'd7,
+		  EXECUTEI = 4'd8, JAL      = 4'd9, BEQ      = 4'd10
     } statetype;
 
     statetype state, nextstate;
